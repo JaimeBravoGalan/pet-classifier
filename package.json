@@ -1,0 +1,10 @@
+{
+  "name": "pet-classifier",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@vaadin/vaadin-upload": "^4.2.2",
+    "@webcomponents/webcomponentsjs": "2.4.1",
+    "lit-element": "2.2.1"
+  }
+}
