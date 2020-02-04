@@ -43,6 +43,7 @@ class PetClassifier extends LitElement {
 
     .wc-classifier__box{
       min-height: 300px;
+      position: relative;
     }
 
   .wc-classifier__btn{
@@ -108,11 +109,49 @@ class PetClassifier extends LitElement {
   
   .wc-classifier__item{
     display: block;
-      font-size: 24px;
-      line-height: 28px;
+      font-size: 28px;
+      line-height: 32px;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
   }
+
+  .spinner {
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    position: absolute;
+    top: 45%;
+    left: 500px;
+    margin: -25px 0 0 -25px;
+    width: 70px;
+    height: 70px;
+  }
+  .spinner .path {
+      stroke: #fff;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }
+  
     `;
   }
 
@@ -126,6 +165,9 @@ class PetClassifier extends LitElement {
           </label>
           <div class="wc-classifier__box">
             ${this.convertedFile?html`<figure class="wc-classifier__selected"><img class="wc-classifier__img" src="${this.convertedFile}" /></figure>`:html``}
+            <svg class="spinner" viewBox="0 0 50 50">
+              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
             <ul class="wc-classifier__list">
             ${this.results ? html`${this.results.map(result=> html`
               <li class="wc-classifier__item">${result.className} ${Math.round(((result.probability)*100) * 100) / 100}%</li>
