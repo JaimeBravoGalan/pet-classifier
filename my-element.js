@@ -104,9 +104,11 @@ class PetClassifier extends LitElement {
   }
   
   .wc-classifier__item{
-      font-size: 18px;
-      line-height: 22px;
+    display: block;
+      font-size: 24px;
+      line-height: 28px;
       font-weight: bold;
+      margin-bottom: 20px;
   }
     `;
   }
