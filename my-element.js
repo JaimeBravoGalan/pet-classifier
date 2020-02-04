@@ -22,33 +22,25 @@ class PetClassifier extends LitElement {
       line-height: 22px;
     }
   
-  .wc-classifier__screen{
-    height: 700px;
-    background: url(dog-face.jpg);
-    background-attachment: fixed;
-    background-size: cover;
-    padding: 50px 30px;
-  }
+    .wc-classifier__screen{
+      height: auto;
+      min-height: 100%;
+      background: url(dog-face.jpg);
+      background-attachment: fixed;
+      background-size: cover;
+      padding: 50px 30px;
+    }
+    
+    .wc-classifier__title{
+        max-width: 340px;
+        font-size: 60px;
+        line-height: 65px;
+        margin-bottom: 40px;
+    }
 
-  .wc-classifier__box{
-    min-height: 300px;
-    width: 390px;
-  }
-  
-  .wc-classifier__title{
-      max-width: 330px;
-      font-size: 60px;
-      line-height: 65px;
-      margin-bottom: 40px;
-  }
-  
-  .wc-classifier__list{
-      
-  }
-  
-  .wc-classifier__item{
-      
-  }
+    .wc-classifier__box{
+      min-height: 300px;
+    }
 
   .wc-classifier__btn{
     display: inline-block;
@@ -92,14 +84,29 @@ class PetClassifier extends LitElement {
   }
 
   .wc-classifier__selected{
+    display: inline-block;
     min-width: 200px;
     height: 200px; 
     display: inline-block;
     margin: 35px 0;
+    border-radius: 4px;
+    overflow: hidden;
   }
 
   .wc-classifier__img{
       max-height: 100%;
+  }
+
+  .wc-classifier__list{
+      display: inline-block;
+      padding-top: 20px;
+      vertical-align: top;
+  }
+  
+  .wc-classifier__item{
+      font-size: 18px;
+      line-height: 22px;
+      font-weight: bold;
   }
     `;
   }
@@ -110,14 +117,14 @@ class PetClassifier extends LitElement {
           <h1 class="wc-classifier__title">PET CLASSIFIER</h1>
           <label class="wc-classifier__btn" for="pet">
             <span>click me papafritas!</span>
-            <input  type="file" label="Adjuntar" name="pet" id="pet" @change=${(e) => this.controlUploadFile(e)}/>
+            <input type="file" label="Adjuntar" name="pet" id="pet" @change=${(e) => this.controlUploadFile(e)}/>
           </label>
           <div class="wc-classifier__box">
-          ${this.convertedFile?html`<figure class="wc-classifier__selected"><img class="wc-classifier__img" src="${this.convertedFile}" /></figure>`:html``}
-          ${this.results?html`${this.results.map(result=> html`
-          <ul class="wc-classifier__list">
-            <li class="wc-classifier__item">${result.className} ${Math.round(((result.probability)*100) * 100) / 100}%</li>
-          </ul>`)}`:html``}
+            ${this.convertedFile?html`<figure class="wc-classifier__selected"><img class="wc-classifier__img" src="${this.convertedFile}" /></figure>`:html``}
+            ${this.results?html`${this.results.map(result=> html`
+            <ul class="wc-classifier__list">
+              <li class="wc-classifier__item">${result.className} ${Math.round(((result.probability)*100) * 100) / 100}%</li>
+            </ul>`)}`:html``}
           </div>
           <div class="wc-classifier__footer">
             <figure class="wc-classifier__figure"><img class="wc-classifier__img" src="node.svg" /></figure>
@@ -125,7 +132,6 @@ class PetClassifier extends LitElement {
             <figure class="wc-classifier__figure"><img class="wc-classifier__img" src="docker.png" /></figure>
             <figure class="wc-classifier__figure"><img class="wc-classifier__img" src="tensorflow.png" /></figure>
           </div>
-        </div>
       </div>
     `;
   }
