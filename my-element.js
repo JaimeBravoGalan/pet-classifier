@@ -7,15 +7,18 @@ import {
 class PetClassifier extends LitElement {
 
   static get properties() {
-    return { results: Array,
-    convertedFile: String};
+    return {
+      results: Array,
+      convertedFile: String,
+      loading: Boolean
+    };
   }
   constructor() {
     super();
   }
 
   static get styles() {
-    return css`
+    return css `
     *{
       font-family: Arial, Helvetica, sans-serif;
       font-size: 16px;
@@ -123,10 +126,11 @@ class PetClassifier extends LitElement {
           </label>
           <div class="wc-classifier__box">
             ${this.convertedFile?html`<figure class="wc-classifier__selected"><img class="wc-classifier__img" src="${this.convertedFile}" /></figure>`:html``}
-            ${this.results?html`${this.results.map(result=> html`
             <ul class="wc-classifier__list">
+            ${this.results ? html`${this.results.map(result=> html`
               <li class="wc-classifier__item">${result.className} ${Math.round(((result.probability)*100) * 100) / 100}%</li>
-            </ul>`)}`:html``}
+            `)}`:html`${this.loading ? html`<span>Pensando</span>`:html``}`}
+            </ul>
           </div>
           <div class="wc-classifier__footer">
             <figure class="wc-classifier__figure"><img class="wc-classifier__img" src="node.svg" /></figure>
@@ -141,8 +145,14 @@ class PetClassifier extends LitElement {
   async controlUploadFile(e) {
     const file = e.srcElement.files[0];
     this.convertedFile = await this.filteToBase64(file);
+    if (this.convertedFile) {
+      this.results = undefined;
+      this.loading = true;
+    }
     this.results = await this.postNewCandidate(this.convertedFile.split(",")[1]);
-
+    if(this.results){
+      this.loading = false;
+    }
   }
 
   filteToBase64(file) {
@@ -154,19 +164,21 @@ class PetClassifier extends LitElement {
     })
   }
 
-  async postNewCandidate(image){
-    const body = {imageBase64: image};
+  async postNewCandidate(image) {
+    const body = {
+      imageBase64: image
+    };
     const url = `http://localhost:8000/file`;
     const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body),
-        credentials: 'same-origin'
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+      credentials: 'same-origin'
     });
     return await response.json();
-}
+  }
 }
 
 customElements.define('my-element', PetClassifier);
