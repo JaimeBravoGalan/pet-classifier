@@ -105,6 +105,7 @@ class PetClassifier extends LitElement {
       display: inline-block;
       padding-top: 20px;
       vertical-align: top;
+      max-width: 475px;
   }
   
   .wc-classifier__item{
