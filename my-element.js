@@ -165,13 +165,12 @@ class PetClassifier extends LitElement {
           </label>
           <div class="wc-classifier__box">
             ${this.convertedFile?html`<figure class="wc-classifier__selected"><img class="wc-classifier__img" src="${this.convertedFile}" /></figure>`:html``}
-            <svg class="spinner" viewBox="0 0 50 50">
-              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-            </svg>
             <ul class="wc-classifier__list">
             ${this.results ? html`${this.results.map(result=> html`
               <li class="wc-classifier__item">${result.className} ${Math.round(((result.probability)*100) * 100) / 100}%</li>
-            `)}`:html`${this.loading ? html`<span>Pensando</span>`:html``}`}
+            `)}`:html`${this.loading ? html`<svg class="spinner" viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+          </svg>`:html``}`}
             </ul>
           </div>
           <div class="wc-classifier__footer">
