@@ -121,7 +121,7 @@ class PetClassifier extends LitElement {
       <div class="wc-classifier__screen">
           <h1 class="wc-classifier__title">PET CLASSIFIER</h1>
           <label class="wc-classifier__btn" for="pet">
-            <span>click me papafritas!</span>
+            <span>click me!</span>
             <input type="file" label="Adjuntar" name="pet" id="pet" @change=${(e) => this.controlUploadFile(e)}/>
           </label>
           <div class="wc-classifier__box">
